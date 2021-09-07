@@ -1,0 +1,6 @@
+.idea/
+config/*
+runtime/*
+config/database.php
+config/log.php
+config/cache.php
