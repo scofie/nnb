@@ -1,0 +1,79 @@
+{extend name="common/world"} {block name="title"}添加角色{/block} {block name="style"}{/block} {block name="container"}
+<div class="page">
+    <div class="page-single">
+        <form class="card" method="post" style="max-width: 24rem;">
+            <div class="card-header">
+                {empty name="id"}
+                <h3 class="card-title">添加角色</h3>
+                {else/}
+                <h3 class="card-title">修改角色</h3>
+                {/empty}
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="form-label">角色名称</label>
+                    <input type="text" class="form-control" name="rolename" placeholder="角色名称" required="true" value="{$role['rolename']|default=''}" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">描述</label>
+                    <input type="text" class="form-control" name="detail" placeholder="角色的描述" required="true" value="{$role['detail']|default=''}" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">管理员类型</label>
+                    <select class="form-control custom-select" name="type" id="type">
+                        {notempty name="id"}
+                        <option value="1" {if condition="$role['type'] eq 1"}selected="selected"{/if}>超级管理员</option>
+                        <option value="2" {if condition="$role['type'] eq 2"}selected="selected"{/if}>普通管理员</option>
+                        {else/}
+                        <option value="1">超级管理员</option>
+                        <option value="2">普通管理员</option>
+                        {/notempty}
+                    </select>
+                </div>
+                <input type="hidden" id="id" name="id" value="{$id}">
+            </div>
+            <div class="card-footer">
+                <div class="text-right">
+                    {empty name="id"}
+                    <button class="btn btn-primary" type="button" onclick="addrole()">添加角色</button>
+                    {else/}
+                    <button class="btn btn-primary" type="button" onclick="addrole()">修改角色</button>
+                    {/empty}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block} {block name="script"}
+<script>
+    let info = {
+        click_status:true,
+    };
+    function addrole(){
+        if(!info.click_status){
+            toast('操作频繁，请稍后再试');
+            return
+        }
+        let rolename = $('input[name="rolename"]').val();
+        if(!rolename){
+            toast('请输入角色名');
+            return
+        }
+        let detail = $('input[name="detail"]').val();
+        if(!detail){
+            toast('请输入角色描述');
+            return
+        }
+        let type = $('#type').val();
+        let id  = $('#id').val();
+        info.click_status = false;
+        ajax('{:url("Account/dorole")}', {rolename:rolename,detail:detail,type: type,id:id}, function(res){
+            info.click_status = true;
+            toast(res['msg'],function(){
+                location.reload();
+            });
+
+        });
+    }
+</script>
+{/block}

@@ -1,0 +1,5 @@
+---------------------------------------------------------------
+[ 2021-09-02T10:22:36+08:00 ] 114.102.134.167 GET /signin.html?from=http%3A%2F%2Fsl.g8ym.com%2Fmachine.html
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000460s ] mysql:host=127.0.0.1;port=3306;dbname=shenlan;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `config` [ RunTime:0.001136s ]
+[ sql ] [ SQL ] SELECT * FROM `config` WHERE  `token` = 'hello.group' LIMIT 1 [ RunTime:0.000400s ]

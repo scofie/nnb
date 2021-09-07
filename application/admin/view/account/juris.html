@@ -1,0 +1,89 @@
+{extend name="common/world"}
+
+{block name="title"}权限列表{/block}
+
+{block name="style"}{/block}
+
+{block name="container"}
+
+<div class="card">
+
+	<div class="table-responsive">
+
+	    <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+
+	        <thead>
+
+	            <tr>
+
+	                <th>Id</th>
+					<th>栏目</th>
+	                <th>菜单</th>
+
+	                <th>模块</th>
+
+	                <th>控制器</th>
+	                <th>方法</th>
+	                <th class="text-center">操作</th>
+	            </tr>
+
+	        </thead>
+			<tbody>
+
+	        	{volist name="juris" id="item"}
+
+	            <tr>
+
+
+	                <td>
+
+	                    <div>{$item.id}</div>
+
+	                </td>
+
+					<td>
+
+						<div>{$item.newcate}</div>
+
+					</td>
+
+	                <td>
+
+	                	<div>{$item.menu}</div>
+
+	                	 <div class="small text-muted">{$item.add_time}</div>
+
+	                </td>
+
+	                <td>{$item.model}</td>
+
+	                <td>
+	                	{$item.controller}
+
+	                </td>
+	                 <td>
+	                	{$item.action}
+	                </td>
+	                <td class="text-center">
+
+	                    <a href="/admin/account/addjuris.html?id={$item.id}" class="icon"><i class="fe fe-edit"></i></a>
+	                </td>
+
+	            </tr>
+
+	            {/volist}
+
+	        </tbody>
+	       
+
+	    </table>
+
+	</div>
+
+	<div class="card-footer">{$juris|raw}</div>
+
+</div>
+
+{/block}
+
+{block name="script"} {/block}

@@ -1,0 +1,90 @@
+{extend name="common/world"}
+{block name="title"}Real name authentication{/block}
+{block name="style"}{/block}
+{block name="container"}
+<form class="card mx-auto authen" method="post" style="max-width: 22rem;">
+    <fieldset {$user.account.authen == 1 || $user.account.authen == 2 ? 'disabled' : ''}>
+        <div class="card-body">
+            <div class="dimmer">
+                <div class="loader"></div>
+                <div class="dimmer-content">
+                        <div class="card-title mb-4">
+                            <div class="text-black mb-1">Real name authentication</div>
+                            <div class="text-muted" style="font-size: .9rem;">Please fill in your information carefully</div>
+                        </div>
+                        {eq name="user.account.authen" value="0"}
+                            {notempty name="user.profile.authen_reason"}
+                            <div class="alert alert-danger" role="alert">{$user.profile.authen_reason}</div>
+                            {/notempty}
+                        {/eq}
+                        {eq name="user.account.authen" value="1"}
+                            <div class="alert alert-success" role="alert">Congratulations, you have passed the real name certification!</div>
+                        {/eq}
+                        {eq name="user.account.authen" value="2"}
+                            <div class="alert alert-warning" role="alert">Your information is under review. Please wait patiently！</div>
+                        {/eq}
+                        {notempty name="audit"}
+                            <div class="alert alert-warning" role="alert">Your account has not been approved！</div>
+                        {/notempty}
+                        <div class="form-group">
+                            <label class="form-label">Personality nickname</label>
+                            <input type="text" class="form-control" name="nickname" placeholder="Personality nickname" value="{$user.profile.nickname}" maxlength="10" />
+                        </div>
+                        <!-- <div class="form-group">
+                            <div class="form-label">我的头像</div>
+                            <div class="custom-file">
+                                <input type="file" accept="image/*" class="custom-file-input" name="avatar" />
+                                <label class="custom-file-label">选择图片</label>
+                            </div>
+                        </div> -->
+                        <div class="form-group">
+                            <label class="form-label">Real name</label>
+                            <input type="text" class="form-control" name="realname" placeholder="Consistent with the ID card" value="{$user.profile.realname}" />
+                        </div>
+                        <div class="form-group mb-0">
+                            <label class="form-label">ID card No.</label>
+                            <input type="text" class="form-control" name="idcard" placeholder="ID card No." value="{$user.profile.idcard}" />
+                        </div>
+                        {notempty name="Think.config.hello.authentication.certificate.front"}
+                        <div class="form-group mt-3 mb-0">
+                            <div class="form-label">Front of ID card</div>
+                            <div class="custom-file">
+                                <input type="file" accept="image/*" class="custom-file-input" name="front" />
+                                <label class="custom-file-label">Select Picture</label>
+                            </div>
+                        </div>
+                        {/notempty}
+                        {notempty name="Think.config.hello.authentication.certificate.back"}
+                        <div class="form-group mt-3 mb-0">
+                            <div class="form-label">Reverse side of ID card</div>
+                            <div class="custom-file">
+                                <input type="file" accept="image/*" class="custom-file-input" name="back" />
+                                <label class="custom-file-label">Select Picture</label>
+                            </div>
+                        </div>
+                        {/notempty}
+                        {notempty name="Think.config.hello.authentication.certificate.hold"}
+                        <div class="form-group mt-3 mb-0">
+                            <div class="form-label">Hand held ID card</div>
+                            <div class="custom-file">
+                                <input type="file" accept="image/*" class="custom-file-input" name="hold" />
+                                <label class="custom-file-label">Select Picture</label>
+                            </div>
+                        </div>
+                        {/notempty}
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-right">
+            {notempty name="audit"}
+                <button type="button" class="btn btn-primary" disabled="true">Submit certification</button>
+            {else /}
+                <button type="button" class="btn btn-primary">Submit certification</button>
+            {/notempty}
+        </div>
+    </fieldset>
+</form>
+{/block}
+{block name="script"}
+<script type="text/javascript" src="/static/js/authen.js?2"></script>
+{/block}

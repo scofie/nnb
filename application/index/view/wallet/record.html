@@ -1,0 +1,32 @@
+{extend name="common/world"}
+{block name="title"}My wallet{/block}
+{block name="style"}{/block}
+{block name="container"}
+<div class="d-flex">
+    <div class="form-group mb-3">
+        <select class="form-control custom-select w-auto" name="type">
+            <option value="">All types</option>
+        </select>
+    </div>
+    <div class="text-muted mt-2 ml-3 small">total：<span class="total"></span><span class="unit"></span></div>
+</div>
+<div class="card">
+    <table class="table card-table table-vcenter text-nowrap">
+        <thead>
+            <tr>
+                <th>basic</th>
+                <th class="text-right">amount</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div hidden class="card-footer card-more"><div class="text-center">more</div></div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+var currency = '{$Think.get.c}';
+var business = '{$Think.get.t}';
+</script>
+<script type="text/javascript" src="/static/js/record.js"></script>
+{/block}

@@ -1,0 +1,19 @@
+---------------------------------------------------------------
+[ 2021-09-06T11:33:28+08:00 ] 10.211.55.2 GET /signup.html
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001890s ] mysql:host=127.0.0.1;port=3306;dbname=nnd;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `config` [ RunTime:0.005772s ]
+[ sql ] [ SQL ] SELECT * FROM `config` WHERE  `token` = 'hello.group' LIMIT 1 [ RunTime:0.001343s ]
+---------------------------------------------------------------
+[ 2021-09-06T11:33:29+08:00 ] 10.211.55.2 GET /service/captcha.html
+[ error ] [0]致命错误: Call to undefined function think\captcha\imagecreate()
+---------------------------------------------------------------
+[ 2021-09-06T11:33:36+08:00 ] 10.211.55.2 GET /service/captcha.html?1188356723
+[ error ] [0]致命错误: Call to undefined function think\captcha\imagecreate()
+---------------------------------------------------------------
+[ 2021-09-06T11:34:06+08:00 ] 10.211.55.2 GET /service/captcha.html
+[ error ] [0]致命错误: Call to undefined function think\captcha\imagecreate()
+---------------------------------------------------------------
+[ 2021-09-06T12:08:13+08:00 ] 10.211.55.2 GET /
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001883s ] mysql:host=127.0.0.1;port=3306;dbname=nnd;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `config` [ RunTime:0.004041s ]
+[ sql ] [ SQL ] SELECT * FROM `config` WHERE  `token` = 'hello.group' LIMIT 1 [ RunTime:0.000752s ]

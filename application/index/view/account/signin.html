@@ -1,0 +1,43 @@
+{extend name="common/hello"}
+{block name="title"}Sign In{/block}
+{block name="style"}{/block}
+{block name="form"}
+<div class="card signin" method="post">
+    <div class="card-body p-6">
+		<div class="card-title">Sign in to your account</div>
+		<div class="form-group">
+			<label class="form-label">phone number</label>
+			<input tabindex="1" type="tel" maxlength="11" name="username" class="form-control" placeholder="phone number" />
+		</div>
+		<div class="form-group">
+			<label class="form-label">Login password
+				{if empty($Request.param) }
+				<a href="/forgot.html" class="float-right small">Forget password</a>
+				{else /}
+				<a href="/forgot.html?{:query($Request.query)}" class="float-right small">Forget password</a>
+				{/if}
+			</label>
+			<input tabindex="2" type="password" maxlength="32" name="password" class="form-control" placeholder="Please enter here" />
+		</div>
+		<div class="form-footer">
+			<button tabindex="3" type="submit" class="btn btn-primary btn-block">Login account</button>
+			{notempty name="Think.config.hello.oauth.wechat.enable"}
+				<a hidden href="/oauth/wechat/login.html" class="btn btn-success btn-block btn-wechat"><i class="fa fa-wechat mr-1"></i> Wechat login</a>
+			{/notempty}
+			{notempty name="Think.config.hello.oauth.qq.enable"}
+				<a hidden href="/oauth/qq/login.html" class="btn btn-success btn-block btn-qq"><i class="fa fa-qq mr-1"></i> QQ login</a>
+			{/notempty}
+		</div>
+	</div>
+</div>
+<div class="text-center text-muted">
+{if empty($Request.param) }
+	No account yet? <a href="/signup.html">Register now</a>
+{else /}
+	No account yet? <a href="/signup.html?{:query($Request.query)}">Register now</a>
+{/if}
+</div>
+{/block}
+{block name="script"}
+<script src="/static/js/signin.js"></script>
+{/block}

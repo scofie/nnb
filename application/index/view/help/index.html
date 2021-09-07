@@ -1,0 +1,96 @@
+{extend name="common/world"}
+{block name="title"}My{/block}
+{block name="style"}
+
+<style>
+	.list-nav{
+		display: flex;
+		flex-direction: row;
+		border: 1px solid #eee;
+		padding: 0.7rem 0;
+		margin-bottom: 0.5rem;
+		background-color: #fff;
+	}
+	
+	.realimg{
+		position: relative;
+		box-sizing: border-box;
+	}
+	
+	.realimg img{
+		width: 20%;
+		display: block;
+		margin: 0 auto;
+	}
+	.realimg span{
+		display: block;
+		text-align: center;
+		padding: 0.3rem 0;
+		
+	}
+	
+	.list-img{margin-bottom: 0.5rem;}
+	
+</style>
+
+
+{/block}
+
+{block name="container"}
+<div class="list-group quick-operation list-nav">
+	<a href="/account/authen.html"><div class="realimg">
+		<img src="static/image/real1.png">
+		<span>Real name authentication</span>
+	</div></a>
+	<a href="/account/profile.html"><div class="realimg">
+		<img src="static/image/personal1.png">
+		<span>personal data</span>
+	</div></a>
+</div>
+<div class="list-group quick-operation list-img">
+	<img src="static/image/m4.png">
+</div>
+<div class="list-group quick-operation list-padding">
+	<a class="list-group-item d-flex justify-content-between align-items-center" href="/team/inviter.html" style="padding: .8rem .75rem;">
+                    <i class="fe fe-flag text-muted"></i>
+                    <span class="ml-3">Invite friends</span>
+                    <span class="text-muted ml-auto"><i class="fe fe-chevron-right"></i></span>
+                </a>
+                
+                <a class="list-group-item d-flex justify-content-between align-items-center" href="/wallet/record.html" style="padding: .8rem .75rem;">
+                    <i class="fe fe-slack text-muted"></i>
+                    <span class="ml-3">Asset details</span>
+                    <span class="tex877777777t-muted ml-auto"><i class="fe fe-chevron-right"></i></span>
+                </a>
+           
+                <a class="list-group-item d-flex justify-content-between align-items-center" href="/account/reset.html" style="padding: .8rem .75rem;">
+                    <i class="fe fe-lock text-muted"></i>
+                    <span class="ml-3">Change Password</span>
+                    <span class="text-muted ml-auto"><i class="fe fe-chevron-right"></i></span>
+                </a>
+            
+                <a class="list-group-item d-flex justify-content-between align-items-center" href="/news.html" style="padding: .8rem .75rem;">
+                    <i class="fe fe-list text-muted"></i>
+                    <span class="ml-3">News announcement</span>
+                    <span class="text-muted ml-auto"><i class="fe fe-chevron-right"></i></span>
+                </a>
+                <a class="list-group-item d-flex justify-content-between align-items-center" href="/contact.html" style="padding: .8rem .75rem;">
+                    <i class="fe fe-headphones text-muted"></i>
+                    <span class="ml-3">contact us</span>
+                    <span class="text-muted ml-auto"><i class="fe fe-chevron-right"></i></span>
+                </a>
+                	<!--		
+                <a class="list-group-item d-flex justify-content-between align-items-center" href="/help.html">
+                    <i class="fe fe-help-circle text-muted"></i>
+                    <span class="ml-3">帮助中心</span>
+                    <span class="text-muted ml-auto"><i class="fe fe-chevron-right"></i></span>
+                </a>
+                -->
+                <a class="list-group-item d-flex justify-content-between align-items-center" href="/signout.html" style="padding: .8rem .75rem;">
+                    <i class="fe fe-log-out text-muted"></i>
+                    <span class="ml-3">Log out</span>
+                    <span class="text-muted ml-auto"><i class="fe fe-chevron-right"></i></span>
+                </a>
+            </div>
+{/block}
+{block name="script"} {/block}

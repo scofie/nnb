@@ -1,0 +1,60 @@
+{extend name="common/world"} {block name="title"}分配权限{/block} {block name="style"}{/block} {block name="container"}
+<div class="page">
+    <div class="page-single">
+        <form class="card" method="post" style="max-width: 35rem;">
+            <div class="card-header">
+                <h3 class="card-title">分配权限--{$role.rolename}</h3>
+            </div>
+            <div class="card-body">
+                {volist name="cate" id="item"}
+                <div class="form-group">
+                    <label>{$item['cate']}</label>
+                    <div style="margin-left: 30px;">
+                        {volist name="item['juris']" id="row"}
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="role{$row['id']}" value="{$row['id']}" {in name="row.id" value="$content"}checked="checked"{/in} name="roleid">{$row['menu']}
+                        </label>
+                        {/volist}
+                    </div>
+                </div>
+                {/volist}
+                <input type="hidden" id="id" name="id" value="{$id}">
+            </div>
+            <div class="card-footer">
+                <div class="text-right">
+                    <button class="btn btn-primary" type="button" onclick="getrole()">确定</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block} {block name="script"}
+<script>
+    let info = {
+        click_status:true,
+    };
+    function getrole(){
+        if(!info.click_status){
+            toast('操作频繁，请稍后再试');
+            return
+        }
+        let roleid = [];
+        $('input[type="checkbox"]:checked').each(function(){
+            roleid.push($(this).val());
+        });
+        if(!roleid.length){
+            toast('请选择权限');
+            return
+        }
+        let id  = $('#id').val();
+        info.click_status = false;
+        ajax('{:url("Account/getrole")}', {roleid:JSON.stringify(roleid),id:id}, function(res){
+            info.click_status = true;
+            toast(res['msg'],function(){
+                location.reload();
+            });
+
+        });
+    }
+</script>
+{/block}

@@ -1,0 +1,96 @@
+{extend name="common/world"} {block name="title"}添加管理员{/block} {block name="style"}{/block} {block name="container"}
+<div class="page">
+    <div class="page-single">
+        <form class="card" method="post" style="max-width: 24rem;">
+            <div class="card-header">
+                {eq name="$type" value="1"}
+                {empty name="id"}
+                <h3 class="card-title">添加管理员</h3>
+                {else/}
+                <h3 class="card-title">修改管理员</h3>
+                {/empty}
+                {else/}
+                <h3 class="card-title">修改密码</h3>
+                {/eq}
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="form-label">用户名</label>
+                    <input type="text" class="form-control" name="adminname" placeholder="用户名" required="true" value="{$admin['adminname']|default=''}" {eq name="$type" value="2"}readonly{/eq}/>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">密码</label>
+                    <input type="text" class="form-control" name="psd" placeholder="密码" required="true" value="{$admin['password']|default=''}" />
+                </div>
+                <div class="form-group" {eq name="$type" value="2"}style="display:none;"{/eq}>
+                    <label class="form-label">选择角色</label>
+                    <select class="form-control custom-select" name="roleid" id="roleid">
+                        {notempty name="admin.roleid"}
+                        {volist name="role" id="row"}
+                        <option value="{$row.id}" {if condition="$admin['roleid'] eq $row['id']"}selected="selected"{/if}>{$row['rolename']}</option>
+                        {/volist}
+                        {else/}
+                        {volist name="role" id="row"}
+                        <option value="{$row.id}">{$row['rolename']}</option>
+                        {/volist}
+                        {/notempty}
+                    </select>
+                </div>
+                <input type="hidden" id="id" name="id" value="{$id}">
+            </div>
+            <div class="card-footer">
+                <div class="text-right">
+                    {eq name="$type" value="1"}
+                    {empty name="id"}
+                    <button class="btn btn-primary" type="button" onclick="addadmin()">添加管理员</button>
+                    {else/}
+                    <button class="btn btn-primary" type="button" onclick="addadmin()">修改管理员</button>
+                    {/empty}
+                    {else}
+                    <button class="btn btn-primary" type="button" onclick="addadmin()">修改密码</button>
+                    {/eq}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block} {block name="script"}
+<script>
+    let info = {
+        click_status:true,
+    };
+    function addadmin(){
+        if(!info.click_status){
+            toast('操作频繁，请稍后再试');
+            return
+        }
+        let adminname = $('input[name="adminname"]').val();
+        if(!adminname){
+            toast('请输入用户名');
+            return
+        }
+        let password = $('input[name="psd"]').val();
+        if(!password){
+            toast('请输入密码');
+            return
+        }
+        if(password.length < 6 || password.length > 16){
+            toast('密码长度为6--16位');
+            return
+        }
+        let roleid = $('#roleid').val();
+        let id  = $('#id').val();
+        info.click_status = false;
+        ajax('{:url("Account/doadmin")}', {adminname:adminname,password:password,roleid: roleid,id:id}, function(res){
+            info.click_status = true;
+            if(res['code']){
+                toast(res['msg'],function(){
+                    location.reload();
+                });
+            } else {
+                toast(res['msg']);
+            }
+        });
+    }
+</script>
+{/block}

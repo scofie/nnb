@@ -1,0 +1,98 @@
+{extend name="common/world"}
+
+{block name="title"}角色列表{/block}
+
+{block name="style"}{/block}
+
+{block name="container"}
+
+<div class="card">
+
+    <div class="table-responsive">
+
+        <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>角色名</th>
+                <th>描述</th>
+                <th>管理员类型</th>
+                <th class="text-center">操作</th>
+            </tr>
+
+            </thead>
+            <tbody>
+
+            {volist name="role" id="item"}
+
+            <tr>
+                <td>
+
+                    <div>{$item.id}</div>
+
+                </td>
+
+                <td>
+                    <div>{$item.rolename}</div>
+                    <div class="small text-muted">{$item.add_time}</div>
+                </td>
+                <td>
+                    <div>{$item.detail}</div>
+                </td>
+                <td>
+                    {eq name="item.type" value="1"}
+                    <div>超级管理员</div>
+                    {else/}
+                    <div>普通管理员</div>
+                    {/eq}
+                </td>
+                <td class="text-center">
+                    {eq name="item.type" value="2"}
+                    <a href="/admin/account/showrole.html?id={$item.id}" class="icon"><span class="ml-2" style="color: #0099ee;">分配权限</span></a>
+                    {/eq}
+                    <a href="/admin/account/addrole.html?id={$item.id}" class="icon"><i class="fe fe-edit"></i></a>
+                    <a href="javascript:void(0)" onclick="delrole('{$item.id}')" class="icon"><i class="fa fa-trash ml-2"></i></a>
+                </td>
+            </tr>
+
+            {/volist}
+
+            </tbody>
+
+
+        </table>
+
+    </div>
+
+    <div class="card-footer">{$role|raw}</div>
+
+</div>
+
+{/block}
+
+{block name="script"}
+<script>
+    let info = {
+        click_status:true,
+    };
+    function delrole(id){
+        if(confirm('确定要删除此角色吗？')){
+            if(!info.click_status){
+                toast('操作频繁，请稍后再试');
+                return
+            }
+            info.click_status = false;
+            ajax('{:url("Account/delrole")}', {id:id}, function(res){
+                info.click_status = true;
+                if(res['code']){
+                    toast(res['msg'],function(){
+                        location.reload();
+                    });
+                } else {
+                    toast(res['msg']);
+                }
+            });
+        }
+    }
+</script>
+{/block}

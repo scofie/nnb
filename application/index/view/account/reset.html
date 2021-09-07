@@ -1,0 +1,64 @@
+{extend name="common/world"}
+{block name="title"}Change Password{/block}
+{block name="style"}{/block}
+{block name="container"}
+<div class="card mx-auto reset" style="max-width: 22rem;">
+    <div class="card-body">
+        <div class="dimmer">
+            <div class="loader"></div>
+            <div class="dimmer-content">
+                <div class="card-title mb-4">
+                    <div class="text-black mb-1">Change Password</div>
+                    <div class="text-muted" style="font-size: .9rem;">You can choose to change your login or security password</div>
+                </div>
+                <div class="form-group">
+                    <div class="selectgroup w-100">
+                        <label class="selectgroup-item mb-0">
+                            <input type="radio" name="type" value="1" class="selectgroup-input" />
+                            <span class="selectgroup-button">Login password</span>
+                        </label>
+                        <label class="selectgroup-item mb-0">
+                            <input type="radio" name="type" value="2" class="selectgroup-input" />
+                            <span class="selectgroup-button">Security password</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Login password</label>
+                    <input type="password" maxlength="32" name="password" class="form-control" placeholder="Login password" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Security password</label>
+                    <input type="password" maxlength="32" name="confirm" class="form-control" placeholder="Security password" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Verification Code</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" maxlength="3" name="captcha" placeholder="Verification Code" />
+                        <span class="input-group-append" id="basic-addon2">
+                            <span class="input-group-text captcha-touch">
+                                <img src="{:url('service/captcha')}" class="captcha" />
+                            </span>
+                        </span>
+                    </div>
+                </div>
+<!--                <div class="form-group">-->
+<!--                    <label class="form-label">SMS verification code</label>-->
+<!--                    <div class="input-group">-->
+<!--                        <input type="text" class="form-control" maxlength="6" name="verify_code" placeholder="SMS verification code" />-->
+<!--                        <span class="input-group-append">-->
+<!--                            <button class="btn btn-secondary btn-send" type="button">Send SMS</button>-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                </div>-->
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-right">
+        <button type="submit" class="btn btn-primary">Change Password</button>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript" src="/static/js/reset.js"></script>
+{/block}

@@ -1,0 +1,154 @@
+{extend name="common/world"}
+
+{block name="title"}管理员列表{/block}
+
+{block name="style"}{/block}
+
+{block name="container"}
+
+<form method="get" class="">
+
+	<div class="row">
+
+		<div class="col-md-6 col-lg-2 mb-3">
+
+			<select class="form-control custom-select" name="roleid">
+
+				<option value="">全部角色</option>
+
+				{volist name="role" id="val"}
+
+				<option value="{$val.id}" {if condition="$val['id'] eq $roleid"}selected="selected"{/if}>{$val.rolename}</option>
+
+				{/volist}
+
+		    </select>
+
+	    </div>
+	    <div class="col-md-6 col-lg-3 mb-3">
+
+			<div class="input-group">
+
+				<div class="input-group-prepend">
+
+					<span class="input-group-text">用户名</span>
+				</div>
+
+				<input type="text" class="form-control" name="adminname" value="{$adminname}"/>
+
+			</div>
+		</div>
+		<div class="col-lg-2 mb-3">
+
+			<button class="btn btn-primary w-100" type="submit">立即查询</button>
+
+		</div>
+
+	</div>
+
+</form>
+
+<div class="card">
+
+	<div class="table-responsive">
+
+	    <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+
+	        <thead>
+
+	            <tr>
+
+	                <th class="text-center w-1"><i class="icon-people"></i></th>
+
+	                <th>Id</th>
+
+	                <th>用户名</th>
+
+	                <th>密码</th>
+
+	                <th>角色</th>
+					{eq name="$role_status" value="1"}
+	                <th class="text-center">操作</th>
+					{/eq}
+
+	            </tr>
+
+	        </thead>
+			<tbody>
+
+	        	{volist name="list" id="item"}
+
+	            <tr>
+
+	                <td class="text-center">
+
+	                    <div class="avatar d-block" style="background-image: url('/static/image/icon.png')"></div>
+
+	                </td>
+
+	                <td>
+
+	                    <div>{$item.id}</div>
+
+	                </td>
+
+	                <td>
+
+	                	<div>{$item.adminname}</div>
+
+	                	 <div class="small text-muted">{$item.add_time}</div>
+
+	                </td>
+
+	                <td>{$item.password}</td>
+
+	                <td>
+	                	{$item.role}
+
+	                </td>
+					{eq name="$role_status" value="1"}
+	                <td class="text-center">
+						<a href="/admin/account/addadmin.html?id={$item.id}&type=1" class="icon"><i class="fe fe-edit"></i></a>
+						{neq name="item.type" value="1"}
+						<a href="javascript:void(0)" onclick="deladmin('{$item.id}')" class="icon"><i class="fa fa-trash ml-2"></i></a>
+						{/neq}
+	                </td>
+					{/eq}
+	            </tr>
+
+	            {/volist}
+
+	        </tbody>
+	    </table>
+	</div>
+	<div class="card-footer">{$list|raw}</div>
+</div>
+
+{/block}
+
+{block name="script"}
+<script>
+	let info = {
+		click_status:true,
+	};
+	function deladmin(id){
+		if(confirm('确定要删除此管理员吗？')){
+			if(!info.click_status){
+				toast('操作频繁，请稍后再试');
+				return
+			}
+			info.click_status = false;
+			ajax('{:url("Account/deladmin")}', {id:id}, function(res){
+				info.click_status = true;
+				if(res['code']){
+					toast(res['msg'],function(){
+						location.reload();
+					});
+				} else {
+					toast(res['msg']);
+				}
+			});
+		}
+	}
+</script>
+{/block}

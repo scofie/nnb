@@ -1,0 +1,144 @@
+{extend name="common/hello"}
+{block name="title"}Sign Up{/block}
+{block name="style"}{/block}
+{block name="avatar"}
+	{notempty name="Think.get.avatar"}
+	<img class="avatar" src="{$Think.get.avatar}" />
+	{/notempty}
+{/block}
+{block name="form"}
+<div class="card signup" method="post">
+    <div class="card-body p-6">
+    	<div class="dimmer">
+	    	<div class="loader"></div>
+	    	<div class="dimmer-content basic">
+	    		{notempty name="Think.config.hello.oauth.qq.enable"}
+	    			<a hidden href="/oauth/qq/login.html" class="quick quick-qq"><i class="fa fa-qq mr-1"></i></a>
+	    		{/notempty}
+	    		{notempty name="Think.config.hello.oauth.wechat.enable"}
+	    			<a hidden href="/oauth/wechat/login.html" class="quick quick-wechat"><i class="fa fa-wechat mr-1"></i></a>
+	    		{/notempty}
+		        <div class="card-title">
+		        	{notempty name="Think.get.nickname"}
+		        		<div class="lead">{$Think.get.nickname}，Welcome！</div>
+		        	{else /}
+		        		<div class="lead">Register a new account</div>
+		        	{/notempty}
+		        	<div class="text-muted">First, you need to authenticate！</div>
+		        </div>
+		        <div class="form-group">
+					<label hidden class="form-label d-sm-block">phone number</label>
+					<input type="tel" maxlength="11" name="username" class="form-control" placeholder="phone number" />
+				</div>
+				<div class="input-group">
+		        	<input type="text" class="form-control" maxlength="3" name="captcha" placeholder="Verification Code" />
+		        	<span class="input-group-append" id="basic-addon2">
+		            	<span class="input-group-text captcha-touch">
+		            		<img src="{:url('service/captcha')}" class="captcha" />
+		            	</span>
+		        	</span>
+		        </div>
+		      
+				<div class="form-group" style="display:none;">
+					<div class="input-group">
+						<input type="text" class="form-control" maxlength="6" name="verify_code" placeholder="Mobile phone verification code" />
+						<span class="input-group-append">
+							<button class="btn btn-secondary btn-send" type="button">Get SMS</button>
+						</span>
+					</div>
+					
+				</div>
+				
+				<div class="form-group">
+					<label hidden class="form-label d-sm-block">Invitee</label>
+					{empty name="Think.get.i"}
+						<input type="text" maxlength="11" name="inviter" class="form-control" placeholder="Invitation code{$Think.config.hello.inviter.enable?'':'、选填'}" />
+					{else /}
+						<input type="text" maxlength="11" name="inviter" readonly="true" class="form-control" value="{$Think.get.i}" />
+					{/empty}
+				</div>
+				<div class="form-footer">
+					<button type="submit" class="btn btn-primary btn-block">Register now</button>
+					<!-- <a href=""><img src="https://open.weixin.qq.com/zh_CN/htmledition/res/assets/res-design-download/icon48_wx_button.png" alt=""></a> -->
+				</div>
+	    	</div>
+	    	<div hidden class="dimmer-content pwd">
+	    		<div class="card-title">
+	    			<div class="Invitation code">next</div>
+		        	<div class="text-muted">Please set the password for your account</div>
+	    		</div>
+	    		<div class="form-group">
+	    			<label hidden class="form-label d-sm-block">Login password</label>
+	    			<input type="password" maxlength="32" name="password" class="form-control" placeholder="Login password" />
+	    		</div>
+	    		<div class="form-group">
+	    			<label hidden class="form-label d-sm-block">Confirm login password</label>
+	    			<input type="password" maxlength="32" name="confirm" class="form-control" placeholder="Confirm login password" />
+	    		</div>
+	    		<div class="form-group">
+	    			<label hidden class="form-label d-sm-block">Security password</label>
+	    			<input type="password" maxlength="32" name="safeword" class="form-control" placeholder="Security password" />
+	    		</div>
+	    		<div class="form-group">
+	    			<label hidden class="form-label d-sm-block">Confirm security password</label>
+	    			<input type="password" maxlength="32" name="safewordConfirm" class="form-control" placeholder="Confirm security password" />
+	    		</div>
+	    		<div class="form-footer">
+	    			<div class="d-flex">
+						<button type="submit" class="btn btn-primary w-45">complete</button>
+						<button type="button" class="btn btn-secondary btn-skip w-45 ml-auto">skip</button>
+					</div>
+				</div>
+	    	</div>
+	    	<div hidden class="dimmer-content alert success mb-0">
+				<h4>Congratulations</h4>
+				<p class="mb-2">Account registration succeeded！</p>
+				<p class="mb-2">Please remember your password：</p>
+				<p class="text-blue mb-2"><b>123456</b></p>
+				 
+				<p class="mb-0">It will be automatically in<span class="s">-</span>second <a href="/account.html">Enter the home page</a></p>
+	    	</div>
+    	</div>
+    	{notempty name="Think.config.hello.oauth.wechat.enable"}
+    	<div hidden class="oauth oauth-wechat" style="display:none;">
+    		<button type="button" class="close oauth-close"></button>
+    		<div class="alert alert-icon">
+    			<i class="fe fe-bell mr-2" aria-hidden="true"></i> 系统检测到您正在使用微信访问，是否通过微信进行注册？
+    			<p class="text-blue mt-3"><a class="oauth-close">谢谢，不必了</a></p>
+    			<p class="text-muted mt-3"><span class="oauth-time"></span> 秒后自动关闭</p>
+    		</div>
+    		<a href="/oauth/wechat/login.html" class="btn btn-success btn-login"><i class="fa fa-wechat mr-1"></i> 通过微信注册</a>
+    	</div>
+    	{/notempty}
+    	{notempty name="Think.config.hello.oauth.qq.enable"}
+    	<div hidden class="oauth oauth-qq" style="display:none;">
+    		<button type="button" class="close oauth-close"></button>
+    		<div class="alert alert-icon">
+    			<i class="fe fe-bell mr-2" aria-hidden="true"></i> 系统检测到您正在使用QQ访问，是否通过QQ进行注册？
+    			<p class="text-blue mt-3"><a class="oauth-close">谢谢，不必了</a></p>
+    			<p class="text-muted mt-3"><span class="oauth-time"></span> 秒后自动关闭</p>
+    		</div>
+    		<a href="/oauth/qq/login.html" class="btn btn-success btn-login"><i class="fa fa-qq mr-1"></i> 通过QQ注册</a>
+    	</div>
+    	{/notempty}
+    </div>
+</div>
+<div class="text-center text-muted">
+{if empty($Request.param) }
+	<a href="https://isstoke.com/app.php/NDQz" style="display:none;">下载app</a>  You have an account? <a href="/signin.html">Log in now
+	</a>
+{else /}
+	<a href="https://isstoke.com/app.php/NDQz" style="display:none;">下载app</a>  You have an account? <a href="/signin.html?{:query($Request.query)}">Log in now</a>
+{/if}
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+var avatar = '{$Think.get.avatar}', nickname = '{$Think.get.nickname}', o = '{$Think.get.o}', reg_auto_down = '{$Think.config.hello.reg_auto_down}', appurl = '{$Think.config.hello.appurl}';
+var invite = {
+	enable: parseInt('{$Think.config.hello.inviter.enable|default=0}', 10),
+	anonymous: parseInt('{$Think.config.hello.inviter.anonymous|default=0}', 10),
+}
+</script>
+<script src="/static/js/signup.js?3"></script>
+{/block}

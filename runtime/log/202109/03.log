@@ -1,0 +1,27 @@
+---------------------------------------------------------------
+[ 2021-09-03T10:27:06+08:00 ] 10.211.55.2 GET /
+[ error ] [2]"continue" targeting switch is equivalent to "break". Did you mean to use "continue 2"?
+---------------------------------------------------------------
+[ 2021-09-03T10:28:00+08:00 ] 10.211.55.2 GET /
+[ error ] [2]"continue" targeting switch is equivalent to "break". Did you mean to use "continue 2"?
+---------------------------------------------------------------
+[ 2021-09-03T10:30:48+08:00 ] 10.211.55.2 GET /
+[ error ] [2]"continue" targeting switch is equivalent to "break". Did you mean to use "continue 2"?
+---------------------------------------------------------------
+[ 2021-09-03T10:34:09+08:00 ] 10.211.55.2 GET /
+[ error ] [1049]SQLSTATE[HY000] [1049] Unknown database 'nnb'
+---------------------------------------------------------------
+[ 2021-09-03T10:34:38+08:00 ] 10.211.55.2 GET /
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000881s ] mysql:host=127.0.0.1;port=3306;dbname=nnd;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `config` [ RunTime:0.003382s ]
+[ sql ] [ SQL ] SELECT * FROM `config` WHERE  `token` = 'hello.group' LIMIT 1 [ RunTime:0.001823s ]
+---------------------------------------------------------------
+[ 2021-09-03T10:35:45+08:00 ] 10.211.55.2 GET /signup.html
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000883s ] mysql:host=127.0.0.1;port=3306;dbname=nnd;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `config` [ RunTime:0.002753s ]
+[ sql ] [ SQL ] SELECT * FROM `config` WHERE  `token` = 'hello.group' LIMIT 1 [ RunTime:0.000917s ]
+---------------------------------------------------------------
+[ 2021-09-03T15:51:26+08:00 ] 10.211.55.2 GET /admin/login.html
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001221s ] mysql:host=127.0.0.1;port=3306;dbname=nnd;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `config` [ RunTime:0.004853s ]
+[ sql ] [ SQL ] SELECT * FROM `config` WHERE  `token` = 'hello.group' LIMIT 1 [ RunTime:0.001405s ]
